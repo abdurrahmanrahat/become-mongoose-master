@@ -1,4 +1,4 @@
-import { Schema } from 'mongoose';
+import { Schema, model } from 'mongoose';
 import {
   Guardian,
   LocalGuardian,
@@ -45,3 +45,6 @@ const studentSchema = new Schema<Student>({
   profileImg: { type: String },
   isActive: ['active', 'blocked'],
 });
+
+// make model
+const Student = model<Student>('Student', studentSchema);
