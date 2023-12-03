@@ -7,4 +7,10 @@ const router = express.Router();
 // call controller function
 router.post('/create-student', StudentControllers.createStudent);
 
+// get route
+router.get('/', StudentControllers.getAllStudents);
+
+// get/:id route
+router.get('/:id', StudentControllers.getStudent);
+
 export const StudentRoutes = router;
