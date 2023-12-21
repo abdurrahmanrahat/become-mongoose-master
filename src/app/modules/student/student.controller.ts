@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 import { StudentServices } from './student.service';
-import studentZodSchema from './student.validation';
+import StudentValidationSchema from './student.validation';
 
 const createStudent = async (req: Request, res: Response) => {
   try {
@@ -10,7 +10,7 @@ const createStudent = async (req: Request, res: Response) => {
     // console.log(error, value);
 
     // data validation using zod.
-    const zodParseData = studentZodSchema.parse(student);
+    const zodParseData = StudentValidationSchema.parse(student);
 
     // will call service function to send data
     const result = await StudentServices.createStudentIntoDb(zodParseData);
@@ -29,11 +29,11 @@ const createStudent = async (req: Request, res: Response) => {
       message: 'Student created successfully',
       data: result,
     });
-  } catch (error) {
+  } catch (error: any) {
     // send response
     res.status(500).json({
       success: false,
-      message: 'Something went wrong.',
+      message: error.message || 'Something went wrong.',
       error: error,
     });
   }

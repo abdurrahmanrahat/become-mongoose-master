@@ -1,13 +1,6 @@
 import { z } from 'zod';
 
-// Define schemas for nested structures
-const userNameSchema = z.object({
-  firstName: z.string().min(1).max(20),
-  middleName: z.string().optional(),
-  lastName: z.string().optional(),
-});
-
-const guardianSchema = z.object({
+const GuardianSchema = z.object({
   fatherName: z.string(),
   fatherOccupation: z.string(),
   fatherContactNo: z.string(),
@@ -16,28 +9,43 @@ const guardianSchema = z.object({
   motherContactNo: z.string(),
 });
 
-const localGuardianSchema = z.object({
+const UserNameSchema = z.object({
+  firstName: z.string(),
+  middleName: z.string(),
+  lastName: z.string(),
+});
+
+const LocalGuardianSchema = z.object({
   name: z.string(),
   occupation: z.string(),
   contactNo: z.string(),
   address: z.string(),
 });
 
-const studentZodSchema = z.object({
+const StudentValidationSchema = z.object({
   id: z.string(),
-  name: userNameSchema,
-  gender: z.enum(['male', 'female', 'other']),
-  dateOfBirth: z.string(),
-  email: z.string().email(),
+  name: UserNameSchema,
+  gender: z.enum(['male', 'female']),
+  dateOfBirth: z.string().optional(),
+  email: z.string(),
   contactNumber: z.string(),
   emergencyContactNo: z.string(),
-  bloodGroup: z.enum(['A+', 'A-', 'B+', 'B-', 'O+', 'O-']),
+  bloodGroup: z
+    .union([
+      z.literal('A+'),
+      z.literal('A-'),
+      z.literal('B+'),
+      z.literal('B-'),
+      z.literal('O+'),
+      z.literal('O-'),
+    ])
+    .optional(),
   presentAddress: z.string(),
   permanentAddress: z.string(),
-  guardian: guardianSchema,
-  localGuardian: localGuardianSchema,
-  profileImg: z.string(),
-  isActive: z.enum(['active', 'blocked']).default('active'),
+  guardian: GuardianSchema,
+  localGuardian: LocalGuardianSchema,
+  profileImg: z.string().optional(),
+  isActive: z.enum(['active', 'blocked']),
 });
 
-export default studentZodSchema;
+export default StudentValidationSchema;
