@@ -1,4 +1,6 @@
+import bcrypt from 'bcrypt';
 import { Schema, model } from 'mongoose';
+import config from '../../config';
 import {
   StudentModel,
   TGuardian,
@@ -76,6 +78,12 @@ const localGuardianSchema = new Schema<TLocalGuardian>({
 // main Schema
 const studentSchema = new Schema<TStudent, StudentModel>({
   id: { type: String, required: [true, 'ID is required.'], unique: true },
+  password: {
+    type: String,
+    required: [true, 'Password is required.'],
+    unique: true,
+    maxlength: [20, 'Password can not be more than 20 characters.'],
+  },
   name: {
     type: userNameSchema,
   },
@@ -131,6 +139,25 @@ const studentSchema = new Schema<TStudent, StudentModel>({
     enum: ['active', 'blocked'],
     default: 'active', // set the value of isActive is active.
   },
+});
+
+// pre save middleware/hook- this middleware call before saving any data in db
+studentSchema.pre('save', async function (next) {
+  // console.log(this, 'pre hook: we will save data');
+
+  const user = this;
+  // hashing password and saved into db
+  user.password = await bcrypt.hash(
+    user.password,
+    Number(config.bcrypt_salt_rounds),
+  );
+
+  next();
+});
+
+// post save middleware/hook
+studentSchema.post('save', function () {
+  console.log(this, 'post hook: we saved our data');
 });
 
 // creating a custom static method.
