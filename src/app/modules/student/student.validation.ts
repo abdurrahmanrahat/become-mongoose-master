@@ -1,5 +1,11 @@
 import { z } from 'zod';
 
+const UserNameSchema = z.object({
+  firstName: z.string(),
+  middleName: z.string(),
+  lastName: z.string(),
+});
+
 const GuardianSchema = z.object({
   fatherName: z.string(),
   fatherOccupation: z.string(),
@@ -7,12 +13,6 @@ const GuardianSchema = z.object({
   motherName: z.string(),
   motherOccupation: z.string(),
   motherContactNo: z.string(),
-});
-
-const UserNameSchema = z.object({
-  firstName: z.string(),
-  middleName: z.string(),
-  lastName: z.string(),
 });
 
 const LocalGuardianSchema = z.object({
