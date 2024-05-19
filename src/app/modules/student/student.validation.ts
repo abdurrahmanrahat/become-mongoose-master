@@ -1,12 +1,12 @@
 import { z } from 'zod';
 
-const UserNameSchema = z.object({
+const UserNameValidationSchema = z.object({
   firstName: z.string(),
   middleName: z.string(),
   lastName: z.string(),
 });
 
-const GuardianSchema = z.object({
+const GuardianValidationSchema = z.object({
   fatherName: z.string(),
   fatherOccupation: z.string(),
   fatherContactNo: z.string(),
@@ -15,7 +15,7 @@ const GuardianSchema = z.object({
   motherContactNo: z.string(),
 });
 
-const LocalGuardianSchema = z.object({
+const LocalGuardianValidationSchema = z.object({
   name: z.string(),
   occupation: z.string(),
   contactNo: z.string(),
@@ -26,9 +26,9 @@ const createStudentValidationSchema = z.object({
   body: z.object({
     password: z.string().max(20),
     student: z.object({
-      name: UserNameSchema,
+      name: UserNameValidationSchema,
       gender: z.enum(['male', 'female']),
-      dateOfBirth: z.string().optional(),
+      dateOfBirth: z.date().optional(),
       email: z.string(),
       contactNumber: z.string(),
       emergencyContactNo: z.string(),
@@ -44,8 +44,8 @@ const createStudentValidationSchema = z.object({
         .optional(),
       presentAddress: z.string(),
       permanentAddress: z.string(),
-      guardian: GuardianSchema,
-      localGuardian: LocalGuardianSchema,
+      guardian: GuardianValidationSchema,
+      localGuardian: LocalGuardianValidationSchema,
       profileImg: z.string().optional(),
     }),
   }),
