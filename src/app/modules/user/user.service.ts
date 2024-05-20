@@ -15,6 +15,11 @@ const createStudentIntoDb = async (password: string, studentData: TStudent) => {
   // set student role
   userData.role = 'student';
 
+  //
+  // const generateStudentId = (payload: TAcademicSemester) => {
+
+  // }
+
   // set manually generated id
   userData.id = '2030100001';
 
