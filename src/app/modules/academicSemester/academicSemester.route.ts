@@ -20,4 +20,12 @@ router.get(
   AcademicSemesterControllers.getSingleAcademicSemester,
 );
 
+router.patch(
+  '/:semesterId',
+  ValidateRequest(
+    AcademicSemesterValidations.updateAcademicSemesterValidationSchema,
+  ),
+  AcademicSemesterControllers.updateAcademicSemester,
+);
+
 export const AcademicSemesterRoutes = router;
