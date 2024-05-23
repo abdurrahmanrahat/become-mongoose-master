@@ -16,9 +16,20 @@ academicDepartmentSchema.pre('save', async function (next) {
   const isDepartmentExist = await AcademicDepartment.findOne({
     name: this.name,
   });
-
   if (isDepartmentExist) {
     throw new Error('Department is already exist!');
+  }
+
+  next();
+});
+
+// check if the department is exist based on _id
+academicDepartmentSchema.pre('findOneAndUpdate', async function (next) {
+  const query = this.getQuery();
+
+  const isDepartmentExist = await AcademicDepartment.findOne(query);
+  if (!isDepartmentExist) {
+    throw new Error('The Department does not exist!');
   }
 
   next();
