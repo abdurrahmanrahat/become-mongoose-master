@@ -10,9 +10,9 @@ const router = express.Router();
 router.get('/', StudentControllers.getAllStudents);
 
 // get/:id route
-router.get('/:id', StudentControllers.getStudent);
+router.get('/:studentId', StudentControllers.getStudent);
 
 // delete route
-router.delete('/:id', StudentControllers.deleteStudent);
+router.delete('/:studentId', StudentControllers.deleteStudent);
 
 export const StudentRoutes = router;
