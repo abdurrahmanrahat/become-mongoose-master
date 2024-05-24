@@ -2,6 +2,7 @@ import httpStatus from 'http-status';
 import mongoose from 'mongoose';
 import AppError from '../../errors/AppError';
 import { User } from '../user/user.model';
+import { TStudent } from './student.interface';
 import { Student } from './student.model';
 
 // get
@@ -21,7 +22,7 @@ const getAllStudentsFromDb = async () => {
 const getStudentFromDb = async (id: string) => {
   // const result = await Student.findOne({ id });
 
-  const result = await Student.findById({ id })
+  const result = await Student.findOne({ id })
     .populate('admissionSemester')
     .populate({
       path: 'academicDepartment',
@@ -29,6 +30,12 @@ const getStudentFromDb = async (id: string) => {
         path: 'academicFaculty',
       },
     });
+  return result;
+};
+
+// patch/:id
+const updateStudentIntoDb = async (id: string, payload: Partial<TStudent>) => {
+  const result = await Student.findOneAndUpdate({ id }, payload);
   return result;
 };
 
@@ -73,4 +80,5 @@ export const StudentServices = {
   getAllStudentsFromDb,
   getStudentFromDb,
   deleteStudentFromDb,
+  updateStudentIntoDb,
 };
