@@ -52,6 +52,8 @@ const createStudentIntoDb = async (password: string, payload: TStudent) => {
   } catch (error) {
     await session.abortTransaction();
     await session.endSession();
+
+    throw new Error('Fail to crate user');
   }
 };
 
