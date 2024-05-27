@@ -3,6 +3,7 @@
 
 import { ErrorRequestHandler } from 'express';
 import { ZodError, ZodIssue } from 'zod';
+import config from '../config';
 import { TErrorSource } from '../interface/error';
 
 export const globalErrHandler: ErrorRequestHandler = (err, req, res, next) => {
@@ -45,5 +46,6 @@ export const globalErrHandler: ErrorRequestHandler = (err, req, res, next) => {
     success: false,
     message,
     errorSources,
+    stack: config.node_env === 'development' ? err?.stack : null,
   });
 };
