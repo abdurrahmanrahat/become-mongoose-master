@@ -10,7 +10,7 @@ export const handleDuplicateError = (err: any): TGenericErrResponse => {
   const errorSources: TErrorSource = [
     {
       path: '',
-      message: extractedMessage,
+      message: `${extractedMessage} is already exist`,
     },
   ];
 
