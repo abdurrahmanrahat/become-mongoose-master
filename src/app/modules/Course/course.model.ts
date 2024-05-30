@@ -26,7 +26,7 @@ const courseSchema = new Schema<TCourse>(
     title: {
       type: String,
       unique: true,
-      trim: true,
+      trim: true, // remove extra space
       required: true,
     },
     prefix: {
