@@ -26,9 +26,4 @@ router.get(
 //   FacultyControllers.updateFaculty,
 // );
 
-router.delete(
-  '/:id',
-  SemesterRegistrationControllers.deleteSemesterRegistration,
-);
-
 export const SemesterRegistrationRoutes = router;
