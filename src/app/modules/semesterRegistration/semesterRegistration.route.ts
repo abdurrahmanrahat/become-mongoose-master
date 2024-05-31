@@ -20,10 +20,12 @@ router.get(
   SemesterRegistrationControllers.getSingleSemesterRegistration,
 );
 
-// router.patch(
-//   '/:id',
-//   ValidateRequest(updateFacultyValidationSchema),
-//   FacultyControllers.updateFaculty,
-// );
+router.patch(
+  '/:id',
+  ValidateRequest(
+    SemesterRegistrationValidations.updateSemesterRegistrationValidationSchema,
+  ),
+  SemesterRegistrationControllers.updateSemesterRegistration,
+);
 
 export const SemesterRegistrationRoutes = router;
