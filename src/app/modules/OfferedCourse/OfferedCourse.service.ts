@@ -128,6 +128,7 @@ const createOfferedCourseIntoDB = async (payload: TOfferedCourse) => {
     ...payload,
     academicSemester,
   });
+
   return result;
 };
 

@@ -36,7 +36,7 @@ const createOfferedCourseValidationSchema = z.object({
         return end > start;
       },
       {
-        message: 'Start time should be before End time !  ',
+        message: 'Start time should be before End time!',
       },
     ),
 });
