@@ -1,4 +1,6 @@
 import httpStatus from 'http-status';
+import jwt from 'jsonwebtoken';
+import config from '../../config';
 import AppError from '../../errors/AppError';
 import { User } from '../user/user.model';
 import { TLoginUser } from './auth.interface';
@@ -33,8 +35,21 @@ const loginUser = async (payload: TLoginUser) => {
   }
 
   // access granted: send accessToken and refreshToken
+  // create token and send to the client
 
-  return {};
+  const jwtPayload = {
+    userId: user.id,
+    role: user.role,
+  };
+
+  const accessToken = jwt.sign(jwtPayload, config.jwt_access_secret as string, {
+    expiresIn: '10d',
+  });
+
+  return {
+    accessToken,
+    needsPasswordChange: user.needsPasswordChange,
+  };
 };
 
 export const AuthServices = {
