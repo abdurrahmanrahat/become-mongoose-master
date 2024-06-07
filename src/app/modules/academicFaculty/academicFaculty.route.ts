@@ -1,5 +1,6 @@
 import express from 'express';
 import ValidateRequest from '../../middlewares/ValidateRequest';
+import auth from '../../middlewares/auth';
 import { AcademicFacultyControllers } from './academicFaculty.controller';
 import { AcademicFacultyValidation } from './academicFaculty.validation';
 
@@ -13,7 +14,7 @@ router.post(
   AcademicFacultyControllers.createAcademicFaculty,
 );
 
-router.get('/', AcademicFacultyControllers.getAllAcademicFaculties);
+router.get('/', auth(), AcademicFacultyControllers.getAllAcademicFaculties);
 
 router.get('/:facultyId', AcademicFacultyControllers.getSingleAcademicFaculty);
 
