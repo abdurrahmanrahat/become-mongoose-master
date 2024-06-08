@@ -1,4 +1,4 @@
-# Food_Supply_Server
+# University_Management
 
 ## Installation:
 
