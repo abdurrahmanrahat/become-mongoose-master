@@ -98,6 +98,8 @@ const changePassword = async (
     },
     {
       password: newHashPassword,
+      needsPasswordChange: false,
+      passwordChangeAt: new Date(),
     },
   );
 
